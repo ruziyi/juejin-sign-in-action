@@ -2,7 +2,7 @@ import os
 
 import requests
 
-# 添加 server 酱通知
+# 添加 plusplus通知
 server_key = os.environ["SERVER_KEY"]
 
 # 获取掘金 cookie
@@ -18,11 +18,10 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/
 
 # server 酱消息推送
 def send_server(title, content):
-    url = "https://sctapi.ftqq.com/%s.send" % server_key
-    params = {'text': title, 'desp': content}
-    resp = requests.post(url, params=params)
-    print('server 酱推送状态码: %s' % resp.status_code)
-
+    url = "http://www.pushplus.plus/send?token=%s&title=%s&content=%s&template=html" % (server_key, title, content)
+    resp = requests.get(url)
+    print('plusplus 推送状态码: %s' % resp.status_code)
+ 
 # 入口
 if __name__ == '__main__':
     checkInResp = requests.post(checkInUrl, headers=headers, cookies={'Cookie': jj_cookie})
